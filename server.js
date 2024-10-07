@@ -1,10 +1,11 @@
 const express = require('express');
 const cors = require('cors'); // Import CORS
 const axios = require('axios');
+require('dotenv').config(); // Import dotenv to use environment variables
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const NASA_API_KEY = 'YSE9eSsZounDbXTfedkdc5Rq8eO9KSkSfKgAZafz'; // Replace with your actual API key
+const NASA_API_KEY = process.env.NASA_API_KEY; // Use environment variable for API key
 
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
@@ -12,6 +13,11 @@ app.use(express.json());
 // Log when the server starts
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+// Route for the root URL
+app.get('/', (req, res) => {
+    res.send('Welcome to the NASA API Backend! Use /apod to fetch APOD data.');
 });
 
 // Route to fetch APOD data
