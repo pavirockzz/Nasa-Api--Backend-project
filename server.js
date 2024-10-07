@@ -1,30 +1,28 @@
-require('dotenv').config();  // Load environment variables from .env file
 const express = require('express');
+const cors = require('cors'); // Import CORS
 const axios = require('axios');
-const cors = require('cors');  // Import CORS middleware
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-const NASA_API_KEY = process.env.NASA_API_KEY;  // Load NASA API key from .env
+const PORT = process.env.PORT || 3000;
+const NASA_API_KEY = 'YSE9eSsZounDbXTfedkdc5Rq8eO9KSkSfKgAZafz'; // Replace with your actual API key
 
-// Enable CORS for cross-origin requests
-app.use(cors());
+app.use(cors()); // Enable CORS for all routes
+app.use(express.json());
 
-// Route to handle requests to the NASA APOD API
-app.get('/apod', async (req, res) => {
-  console.log('Request received for /apod');  // Log request to /apod route
-
-  try {
-    const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`);
-    console.log('NASA API data successfully fetched:', response.data);  // Log the fetched data
-    res.json(response.data);  // Send the data back to the frontend
-  } catch (error) {
-    console.error('Error fetching data from NASA API:', error.message);  // Log errors
-    res.status(500).send('Error fetching data from NASA API');
-  }
+// Log when the server starts
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-// Start the backend server
-app.listen(PORT, () => {
-  console.log(`Backend server is running on port ${PORT}`);
+// Route to fetch APOD data
+app.get('/apod', async (req, res) => {
+    console.log('Received request for /apod'); // Log the request
+    try {
+        const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}`);
+        console.log('APOD Data:', response.data); // Log the received data
+        res.json(response.data); // Send the data back to the client
+    } catch (error) {
+        console.error('Error fetching data from NASA API:', error.message); // Log error message
+        res.status(500).json({ error: 'Failed to fetch data from NASA API' });
+    }
 });

@@ -1,20 +1,26 @@
 {
-  "name": "nasa-project",
+  "name": "nasa-apod-backend",
   "version": "1.0.0",
-  "main": "index.js",
-  "dependencies": {
-    "axios": "^1.7.7",
-    "corepack": "^0.29.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.0",
-    "npm": "^10.8.2"
-  },
+  "description": "Backend server for NASA Astronomy Picture of the Day (APOD) application",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "nasa",
+    "api",
+    "apod",
+    "express"
+  ],
+  "author": "Your Name",
   "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cors": "^2.8.5",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
 }
