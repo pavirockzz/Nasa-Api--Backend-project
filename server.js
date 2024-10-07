@@ -15,9 +15,9 @@ app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-// Route for the root URL
+// Redirect root URL to /apod
 app.get('/', (req, res) => {
-    res.send('Welcome to the NASA API Backend! Use /apod to fetch APOD data.');
+    res.redirect('/apod');
 });
 
 // Route to fetch APOD data
